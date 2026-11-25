@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal & Marksheet Dashboard</title>
+    <link rel="stylesheet" href="stylestudent.css?v=3">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2>EduPortal</h2>
+            </div>
+            <ul class="nav-links" id="sidebarNav">
+                <li class="active"><a href="#" data-target="section-results">📊 Result Lookup</a></li>
+                <li><a href="#" data-target="section-attendance">📅 Attendance</a></li>
+                <li><a href="#" data-target="section-syllabus">📚 Syllabus</a></li>
+                <li><a href="#" data-target="section-notices">📢 Notices</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 id="pageTitle">Student Academic Dashboard</h1>
+                    <p id="pageSubtitle">Enter your Enrollment Number to view and print your updated marksheet.</p>
+                </div>
+                <div class="date-badge" id="currentDate"></div>
+            </header>
+
+            <!-- TAB 1: RESULT LOOKUP -->
+            <div id="section-results" class="tab-section active-section">
+                <section class="search-section">
+                    <form id="searchForm" class="search-form">
+                        <input type="text" id="roll_no" name="roll_no" placeholder="Enter Enrollment Number (e.g., BTAD26O1064)..." required>
+                        <button type="submit">Search Result</button>
+                    </form>
+                </section>
+
+                <div id="errorAlert" class="alert-error" style="display: none;"></div>
+
+                <section id="marksheetCard" class="marksheet-card" style="display: none;">
+                    <div class="marksheet-header">
+                        <div>
+                            <h2>Official Statement of Marks</h2>
+                            <p class="subtitle" id="lastUpdated"></p>
+                        </div>
+                        <button type="button" onclick="window.print()" class="print-btn">🖨️ Print Marksheet</button>
+                    </div>
+
+                    <div class="student-info">
+                        <div class="info-box">
+                            <span>Student Name</span>
+                            <strong id="studentName"></strong>
+                        </div>
+                        <div class="info-box">
+                            <span>Enrollment Number</span>
+                            <strong id="enrollmentNo"></strong>
+                        </div>
+                        <div class="info-box">
+                            <span>Result Status</span>
+                            <strong id="resultStatus"></strong>
+                        </div>
+                    </div>
+
+                    <table class="marks-table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Subject Name</th>
+                                <th>Max Marks</th>
+                                <th>Marks Obtained</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marksTableBody"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>Grand Total</strong></td>
+                                <td><strong id="maxTotal"></strong></td>
+                                <td><strong id="totalMarks"></strong></td>
+                                <td><strong id="percentage"></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+
+                <section id="defaultInfoGrid" class="info-grid">
+                    <div class="card">
+                        <h3>📌 Exam Updates</h3>
+                        <p>Semester final marksheets are now live. Use the search bar above with your Enrollment ID.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🎓 Passing Criteria</h3>
+                        <p>Students require a minimum of 33% aggregate marks across all subjects to qualify.</p>
+                    </div>
+                    <div class="card">
+                        <h3>📞 Admin Support</h3>
+                        <p>Notice a discrepancy in your marks? Contact the examination cell with your enrollment number.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TAB 2: ATTENDANCE -->
+            <div id="section-attendance" class="tab-section" style="display: none;">
+                <section class="content-card">
+                    <h2>Subject-Wise Attendance Overview</h2>
+                    <p class="subtitle" style="margin-bottom: 20px;">Minimum 75% attendance is required to appear in end-semester examinations.</p>
+                    <table class="marks-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Classes Held</th>
+                                <th>Classes Attended</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Digital Logic and Design</td>
+                                <td>40</td>
+                                <td>36</td>
+                                <td><strong>90.0%</strong></td>
+                                <td><span class="status-pass">Eligible</span></td>
+                            </tr>
+                            <tr>
+                                <td>Problem Solving and Programming</td>
+                                <td>42</td>
+                                <td>35</td>
+                                <td><strong>83.3%</strong></td>
+                                <td><span class="status-pass">Eligible</span></td>
+                            </tr>
+                            <tr>
+                                <td>Linear Algebra</td>
+                                <td>38</td>
+                                <td>30</td>
+                                <td><strong>78.9%</strong></td>
+                                <td><span class="status-pass">Eligible</span></td>
+                            </tr>
+                            <tr>
+                                <td>Internet and Web Technologies</td>
+                                <td>36</td>
+                                <td>32</td>
+                                <td><strong>88.8%</strong></td>
+                                <td><span class="status-pass">Eligible</span></td>
+                            </tr>
+                            <tr>
+                                <td>Foundation of Data Science</td>
+                                <td>40</td>
+                                <td>28</td>
+                                <td><strong>70.0%</strong></td>
+                                <td><span class="status-fail">Low</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <!-- TAB 3: SYLLABUS -->
+            <div id="section-syllabus" class="tab-section" style="display: none;">
+                <section class="info-grid">
+                    <div class="card">
+                        <h3>📘 Digital Logic and Design</h3>
+                        <p>Number systems, Boolean algebra, K-maps, combinational & sequential circuits, flip-flops, and counters.</p>
+                    </div>
+                    <div class="card">
+                        <h3>💻 Problem Solving & Programming</h3>
+                        <p>Algorithms, flowcharts, C/Python fundamentals, arrays, pointers, functions, and file handling.</p>
+                    </div>
+                    <div class="card">
+                        <h3>📐 Linear Algebra</h3>
+                        <p>Matrices, determinants, vector spaces, eigenvalues, eigenvectors, and linear transformations.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌐 Internet & Web Technologies</h3>
+                        <p>HTML5, CSS3, Flexbox, JavaScript DOM, PHP server scripting, and MySQL database integration.</p>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Foundation of Data Science</h3>
+                        <p>Data cleaning, exploratory data analysis, probability distributions, and basic visualization.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TAB 4: NOTICES -->
+            <div id="section-notices" class="tab-section" style="display: none;">
+                <section class="content-card">
+                    <h2>Official Department Notices</h2>
+                    <div class="notice-list">
+                        <div class="notice-item">
+                            <span class="notice-date">25 Nov 2026</span>
+                            <h4>Semester Marksheets Uploaded</h4>
+                            <p>Students can now download and print their updated statement of marks from the Result Lookup tab.</p>
+                        </div>
+                        <div class="notice-item">
+                            <span class="notice-date">20 Nov 2026</span>
+                            <h4>Practical Lab Viva Schedule</h4>
+                            <p>External practical examinations for Internet & Web Technologies and Data Science will begin next week.</p>
+                        </div>
+                        <div class="notice-item">
+                            <span class="notice-date">12 Nov 2026</span>
+                            <h4>Attendance Shortage Warning</h4>
+                            <p>Students below 75% attendance must submit medical or valid documentation to the department office.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // 1. Set Current Date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-GB', {
+            day: '2-digit', month: 'short', year: 'numeric'
+        });
+
+        // 2. Sidebar Tab Switching Logic
+        const navLinks = document.querySelectorAll('#sidebarNav a');
+        const tabSections = document.querySelectorAll('.tab-section');
+        const pageTitle = document.getElementById('pageTitle');
+        const pageSubtitle = document.getElementById('pageSubtitle');
+
+        const headerContent = {
+            'section-results': {
+                title: 'Student Academic Dashboard',
+                subtitle: 'Enter your Enrollment Number to view and print your updated marksheet.'
+            },
+            'section-attendance': {
+                title: 'Attendance Tracker',
+                subtitle: 'Check your subject-wise class attendance percentage and exam eligibility.'
+            },
+            'section-syllabus': {
+                title: 'Course Syllabus',
+                subtitle: 'View core modules and topics for your current semester subjects.'
+            },
+            'section-notices': {
+                title: 'Notice Board',
+                subtitle: 'Stay updated with the latest exam schedules and department announcements.'
+            }
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelectorAll('#sidebarNav li').forEach(li => li.classList.remove('active'));
+                this.parentElement.classList.add('active');
+
+                const targetId = this.getAttribute('data-target');
+                tabSections.forEach(sec => sec.style.display = 'none');
+                document.getElementById(targetId).style.display = 'block';
+
+                pageTitle.textContent = headerContent[targetId].title;
+                pageSubtitle.textContent = headerContent[targetId].subtitle;
+            });
+        });
+
+        // 3. Marksheet Search Form Logic
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const errorAlert = document.getElementById('errorAlert');
+            const marksheetCard = document.getElementById('marksheetCard');
+            const defaultInfoGrid = document.getElementById('defaultInfoGrid');
+
+            fetch('fetch_marks.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    errorAlert.style.display = 'none';
+                    defaultInfoGrid.style.display = 'none';
+                    marksheetCard.style.display = 'block';
+
+                    document.getElementById('studentName').textContent = data.student_name;
+                    document.getElementById('enrollmentNo').textContent = data.enrollment_no;
+                    document.getElementById('lastUpdated').textContent = 'Last Updated: ' + data.last_updated;
+
+                    const statusEl = document.getElementById('resultStatus');
+                    statusEl.textContent = data.result_status;
+                    statusEl.className = (data.result_status === 'PASSED') ? 'status-pass' : 'status-fail';
+
+                    const tbody = document.getElementById('marksTableBody');
+                    tbody.innerHTML = '';
+                    data.subjects.forEach((item, index) => {
+                        const row = `
+                            <tr>
+                                <td>0${index + 1}</td>
+                                <td>${item.subject}</td>
+                                <td>100</td>
+                                <td><strong>${item.marks}</strong></td>
+                                <td><span class="grade-pill">${item.grade}</span></td>
+                            </tr>
+                        `;
+                        tbody.innerHTML += row;
+                    });
+
+                    document.getElementById('maxTotal').textContent = data.max_total;
+                    document.getElementById('totalMarks').textContent = data.total_marks;
+                    document.getElementById('percentage').textContent = data.percentage + '%';
+                } else {
+                    marksheetCard.style.display = 'none';
+                    defaultInfoGrid.style.display = 'flex';
+                    errorAlert.textContent = data.message;
+                    errorAlert.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                errorAlert.textContent = 'Server error. Make sure XAMPP Apache & MySQL are running.';
+                errorAlert.style.display = 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>
