@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Portal | Dashboard</title>
+    <link rel="stylesheet" href="styled.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="logo-text">EduPortal</span>
+            <button class="toggle-btn" onclick="toggleSidebar()" title="Slide Menu">∭</button>
+        </div>
+
+        <ul class="nav-links">
+            <li class="nav-item active" onclick="switchTab('dashboard', this)">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('courses', this)">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Courses</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('classes', this)">
+                <span class="nav-icon">🏫</span>
+                <span class="nav-label">Classes</span>
+            </li>
+            <li class="nav-item" onclick="switchTab('reviews', this)">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-label">Reviews</span>
+            </li>
+            <li class = "nav-item" id = "student" onclick = "switchTab('student', this)">
+                <span class="nav-icon">👨‍🏫</span>
+                <span class="nav-label">Student Details</span>
+            </li>
+        </ul>
+
+        <div class="logout-section">
+            <div class="nav-item" onclick="logout()">
+                <span class="nav-icon">🚪</span>
+                <span class="nav-label">Logout</span>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="greeting-line">
+                Good Morning, <span id="teacherDisplayName">Teacher </span><span>!</span> 👋
+            </div>
+            <div class="date-badge" id="currentDate"></div>
+        </header>
+
+        <main class="content-area">
+            <section id="dashboard" class="section-view active">
+                <h3 class="section-title">Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Active Courses</h4>
+                        <p>6</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Total Classes</h4>
+                        <p>14</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Enrolled Students</h4>
+                        <p>185</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Average Rating</h4>
+                        <p>4.9 / 5</p>
+                    </div>
+                </div>
+
+                <div class="card-panel">
+                    <h3 class="section-title">Quick Actions</h3>
+                    <p class="muted-text">Manage student grades or generate official report cards directly from your portal.</p>
+                    <button class="btn-action" onclick="window.location.href='studentdetails.html'">
+                        + Open Report Card Generator
+                    </button>
+                </div>
+
+                <div class="card-panel" style="margin-top:25px;">
+                    <h3 class="section-title">Student Report Summary</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card"><h4>Reports Saved</h4><p id="sumStudents">-</p></div>
+                        <div class="stat-card"><h4>Passed</h4><p id="sumPassed">-</p></div>
+                        <div class="stat-card"><h4>Failed</h4><p id="sumFailed">-</p></div>
+                        <div class="stat-card"><h4>Average %</h4><p id="sumAverage">-</p></div>
+                    </div>
+                    <h4 class="section-title">Recently Added Students</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Year / Sem</th>
+                                <th>Total</th>
+                                <th>%</th>
+                                <th>Grade</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody id="summaryBody">
+                            <tr><td colspan="7" class="muted-text">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <section id="courses" class="section-view">
+                <h3 class="section-title">Assigned Courses</h3>
+                <div class="card-panel">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MTH-101</td>
+                                <td>Applied Mathematics</td>
+                                <td>Science & Math</td>
+                                <td><span class="badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>CSC-204</td>
+                                <td>Computer Science & Web Basics</td>
+                                <td>Information Tech</td>
+                                <td><span class="badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="classes" class="section-view">
+                <h3 class="section-title">Today's Class Schedule</h3>
+                <div class="card-panel">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time Slot</th>
+                                <th>Class & Section</th>
+                                <th>Subject</th>
+                                <th>Room</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00 AM - 10:00 AM</td>
+                                <td>Class 10 - Section A</td>
+                                <td>Mathematics</td>
+                                <td>Room 204</td>
+                            </tr>
+                            <tr>
+                                <td>11:15 AM - 12:15 PM</td>
+                                <td>Class 12 - Science</td>
+                                <td>Computer Science</td>
+                                <td>Lab 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="reviews" class="section-view">
+                <h3 class="section-title">Student & Parent Reviews</h3>
+                <div class="card-panel">
+                    <div class="review-item">
+                        <div class="stars">★★★★★</div>
+                        <strong>Aarav Sharma (Class 10 - A)</strong>
+                        <p class="muted-text">"The practical examples in Computer Science made HTML and JavaScript very easy to understand."</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="stars">★★★★★</div>
+                        <strong>Priya Verma (Class 12 - Science)</strong>
+                        <p class="muted-text">"Very clear explanations and helpful feedback during exam preparation."</p>
+                    </div>
+                </div>
+            </section>
+            <section id = "student" class="section-view">
+                  <h3 class="section-title">Student Details entery</h3>
+                <div class="card-panel">
+                    <div class="review-item" id = "student">
+                        <strong>Enter marks</strong>
+                        <p class="muted-text">"you can enter the MARKS of that particular studebnt without any lag."</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+
+let a = document.getElementById("student");
+a.addEventListener("click", () =>{
+    window.location.href = "studentdetails.html";
+})
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedName = localStorage.getItem("teacherName");
+            if (savedName && savedName.trim() !== "") {
+                document.getElementById("teacherDisplayName").textContent = savedName;
+            }
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById("currentDate").textContent = new Date().toLocaleDateString('en-US', options);
+        });
+
+        async function loadSummary() {
+            const body = document.getElementById("summaryBody");
+            try {
+                const res = await fetch("getsummary.php");
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+
+                document.getElementById("sumStudents").textContent = data.summary.students;
+                document.getElementById("sumPassed").textContent = data.summary.passed;
+                document.getElementById("sumFailed").textContent = data.summary.failed;
+                document.getElementById("sumAverage").textContent = data.summary.average + "%";
+
+                body.innerHTML = "";
+                if (data.recent.length === 0) {
+                    body.innerHTML = '<tr><td colspan="7" class="muted-text">No student reports saved yet.</td></tr>';
+                    return;
+                }
+                data.recent.forEach(s => {
+                    const tr = document.createElement("tr");
+                    const cells = [s.name, s.id, s.year + " / " + s.semester, s.total, s.percent + "%", s.grade];
+                    cells.forEach(text => {
+                        const td = document.createElement("td");
+                        td.textContent = text;   // textContent keeps user data safe
+                        tr.appendChild(td);
+                    });
+                    const td = document.createElement("td");
+                    const badge = document.createElement("span");
+                    badge.className = "badge " + (s.result === "Pass" ? "badge-pass" : "badge-fail");
+                    badge.textContent = s.result;
+                    td.appendChild(badge);
+                    tr.appendChild(td);
+                    body.appendChild(tr);
+                });
+            } catch (err) {
+                body.innerHTML = '<tr><td colspan="7" class="muted-text">Could not load summary.</td></tr>';
+                console.error(err);
+            }
+        }
+        window.addEventListener("DOMContentLoaded", loadSummary);
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("collapsed");
+        }
+
+        function switchTab(sectionId, clickedElement) {
+            document.querySelectorAll(".section-view").forEach(sec => sec.classList.remove("active"));
+            document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+            document.getElementById(sectionId).classList.add("active");
+            clickedElement.classList.add("active");
+        }
+
+        function logout() {
+            localStorage.removeItem("teacherName");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

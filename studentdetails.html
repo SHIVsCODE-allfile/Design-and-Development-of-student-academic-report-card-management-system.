@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Report Card</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+  <h1>Student Report Card</h1>
+
+  <form id="reportForm" action="savereport.php" method="post">
+    <table id="tableout">
+      <tbody>
+        <tr>
+          <td>Student Name</td>
+          <td><input type="text" id="studentname" name="studentName" placeholder="Enter student name" required></td>
+        </tr>
+        <tr>
+          <td>Student ID</td>
+          <td><input type="text" id="studentid" name="studentId" placeholder="Enter student ID" required></td>
+        </tr>
+        <tr>
+          <td>Semester</td>
+          <td><input type="text" id="semester" name="semester" placeholder="Enter semester" required></td>
+        </tr>
+        <tr>
+          <td>Year</td>
+    
+    <td>
+        <select id="year" name="year" required>
+            <option value="" disabled selected>select the year</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+        </select>
+    </td>
+
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table id="tablein">
+              <thead>
+                <tr>
+                  <td>Subject</td>
+                  <td>Marks (Out of 100)</td>
+                  <td>Grade</td>
+                  <td>Pass / Fail</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select id="subject1" name="subject1">
+                      <option value="" disabled selected>Select subject</option>
+                      <option value="Digital Logic and Design">Digital Logic and Design</option>
+                      <option value="Problem Solving and Programming">Problem Solving and Programming</option>
+                      <option value="Linear Algebra">Linear Algebra</option>
+                      <option value="Internet and Web Technologies">Internet and Web Technologies</option>
+                      <option value="Foundation of Data Science">Foundation of Data Science</option>
+                      <option value="other">other</option>
+                    </select>
+                  </td>
+                  <td><input type="number" id="marks1" min="0" max="100" placeholder="0 - 100" name="marks1" oninput="calculateReport()"></td>
+                  <td><input type="text" id="grade1" readonly placeholder="-" name="grade1"></td>
+                  <td><input type="text" id="passfail1" readonly placeholder="-" name="pf1"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="subject2" name="subject2">
+                      <option value="" disabled selected>Select subject</option>
+                      <option value="Digital Logic and Design">Digital Logic and Design</option>
+                      <option value="Problem Solving and Programming">Problem Solving and Programming</option>
+                      <option value="Linear Algebra">Linear Algebra</option>
+                      <option value="Internet and Web Technologies">Internet and Web Technologies</option>
+                      <option value="Foundation of Data Science">Foundation of Data Science</option>
+                      <option value="other">other</option>
+                    </select>
+                  </td>
+                  <td><input type="number" id="marks2" min="0" max="100" placeholder="0 - 100" name="marks2" oninput="calculateReport()"></td>
+                  <td><input type="text" id="grade2" readonly placeholder="-" name="grade2"></td>
+                  <td><input type="text" id="passfail2" readonly placeholder="-" name="pf2"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="subject3" name="subject3">
+                      <option value="" disabled selected>Select subject</option>
+                      <option value="Digital Logic and Design">Digital Logic and Design</option>
+                      <option value="Problem Solving and Programming">Problem Solving and Programming</option>
+                      <option value="Linear Algebra">Linear Algebra</option>
+                      <option value="Internet and Web Technologies">Internet and Web Technologies</option>
+                      <option value="Foundation of Data Science">Foundation of Data Science</option>
+                      <option value="other">other</option>
+                    </select>
+                  </td>
+                  <td><input type="number" id="marks3" min="0" max="100" placeholder="0 - 100" name="marks3" oninput="calculateReport()"></td>
+                  <td><input type="text" id="grade3" readonly placeholder="-" name="grade3"></td>
+                  <td><input type="text" id="passfail3" readonly placeholder="-" name="pf3"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="subject4" name="subject4">
+                      <option value="" disabled selected>Select subject</option>
+                      <option value="Digital Logic and Design">Digital Logic and Design</option>
+                      <option value="Problem Solving and Programming">Problem Solving and Programming</option>
+                      <option value="Linear Algebra">Linear Algebra</option>
+                      <option value="Internet and Web Technologies">Internet and Web Technologies</option>
+                      <option value="Foundation of Data Science">Foundation of Data Science</option>
+                      <option value="other">other</option>
+                    </select>
+                  </td>
+                  <td><input type="number" id="marks4" min="0" max="100" placeholder="0 - 100" name="marks4" oninput="calculateReport()"></td>
+                  <td><input type="text" id="grade4" readonly placeholder="-" name="grade4"></td>
+                  <td><input type="text" id="passfail4" readonly placeholder="-" name="pf4"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="subject5" name="subject5">
+                      <option value="" disabled selected>Select subject</option>
+                      <option value="Digital Logic and Design">Digital Logic and Design</option>
+                      <option value="Problem Solving and Programming">Problem Solving and Programming</option>
+                      <option value="Linear Algebra">Linear Algebra</option>
+                      <option value="Internet and Web Technologies">Internet and Web Technologies</option>
+                      <option value="Foundation of Data Science">Foundation of Data Science</option>
+                      <option value="other">other</option>
+                    </select>
+                  </td>
+                  <td><input type="number" id="marks5" min="0" max="100" placeholder="0 - 100" name="marks5" oninput="calculateReport()"></td>
+                  <td><input type="text" id="grade5" readonly placeholder="-" name="grade5"></td>
+                  <td><input type="text" id="passfail5" readonly placeholder="-" name="pf5"></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="summary-row">
+                  <td>Total / Overall</td>
+                  <td><input type="text" id="totalMarks" name="totalMarks" readonly placeholder="0 / 500"></td>
+                  <td><input type="text" id="overallGrade" name="overallGrade" readonly placeholder="-"></td>
+                  <td><input type="text" id="overallResult" name="overallResult" readonly placeholder="-"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Action Buttons -->
+    <div class="action-bar">
+      <button type="button" class="btn btn-print" onclick="window.print()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Print Report
+      </button>
+
+      <button type="submit" class="btn btn-save">
+        Save & Next
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+  </form>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js?v= 1"></script>
+
+</body>
+</html>

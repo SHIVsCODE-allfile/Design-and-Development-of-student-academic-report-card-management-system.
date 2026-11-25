@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Window</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>SIGNIN WINDOW</h1>
+    
+    <form action="login.php" method="POST" id="authForm">
+        <table>
+            <tr>
+                <td colspan="2">ACCOUNT AUTHORIZATION</td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" id="username" name="user" placeholder="ENTER YOUR NAME"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" id="email" name="email" placeholder="EXAMPLE@gmail.com"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" id="pass" name="pass" placeholder="Enter your password"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label style="margin-right: 20px; cursor: pointer;">
+                        <input type="radio" id="teacher" name="user_type" value="teacher"> Teacher
+                    </label>
+                    <label style="cursor: pointer;">
+                        <input type="radio" id="student" name="user_type" value="student"> Student
+                    </label>
+                </td>
+            </tr>
+            <tr >
+                <td colspan = "2" style = "text-align: center;"> <input type = "button" value = "Login" style = "color:rgb(45, 77, 238); align-items: center;" id ="sig_in"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="sign in" id="login">
+                    <input type="button" value="Clear" id="clear">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        const authForm = document.getElementById("authForm");
+        const clearBtn = document.getElementById("clear");
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("pass");
+        let sig = document.getElementById("sig_in");
+
+
+        sig.addEventListener("click", sign)
+        function sign(){
+            window.location.href = "sigin.html";
+        }
+        function clean() {
+            username.value = "";
+            email.value = "";
+            password.value = "";
+            const checkedRadio = document.querySelector('input[name="user_type"]:checked');
+            if (checkedRadio) checkedRadio.checked = false;
+        }
+
+        clearBtn.addEventListener("click", clean);
+
+        authForm.addEventListener("submit", function(event) {
+            const userType = document.querySelector('input[name="user_type"]:checked');
+
+            if (username.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "" || !userType) {
+                event.preventDefault();
+                alert("FILL ALL THE DETAILS. 👁️👁️");
+            } else {
+                localStorage.setItem("teacherName", username.value.trim());
+            }
+        });
+    </script>
+</body>
+</html>
